@@ -1,12 +1,6 @@
 declare function print(x: any): void;
 declare function readline(): string | null | undefined;
 const split = (s: string) => s.split(/\s+/);
-const make_array = <T>(n: number, x: T): T[] => new Array(n).fill(x);
-const build_array = <T>(n: number, f: (i: number) => T): T[] => {
-  const a = new Array(n);
-  for (let i = 0; i < n; i++) a[i] = f(i);
-  return a;
-};
 
 const [a, b, c] = split(readline()!).map(Number);
 const diff = (x: number, y: number) => {
@@ -18,12 +12,13 @@ const diff = (x: number, y: number) => {
   }
   return r;
 };
-for (let aa = 100; aa < 1000; aa++) {
-  if (c % aa > 0) continue;
-  const bb = c / aa;
-  if (bb < 100 || bb >= 1000) continue;
-  if (diff(a, aa) + diff(b, bb) === 1) {
-    print(`${aa} ${bb}`);
-    break;
+const test = (x: number, y: number) => {
+  if (Number.isSafeInteger(x) && 100 <= x && x < 1000 &&
+      Number.isSafeInteger(y) && 100 <= y && y < 1000 &&
+      diff(x, a) + diff(y, b) === 1) {
+    print(`${x} ${y}`);
+    return true;
   }
-}
+  return false;
+};
+test(a, c / a) || test(c / b, b);
