@@ -1,6 +1,4 @@
 #include <cstdio>
-#include <vector>
-using namespace std;
 
 const int NMAX = 10000;
 
